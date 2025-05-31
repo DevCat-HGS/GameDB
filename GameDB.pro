@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    mainwindow.cpp \
     game.cpp \
     player.cpp \
     enemy.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
     vector2d.cpp
 
 HEADERS += \
+    mainwindow.h \
     game.h \
     player.h \
     enemy.h \
@@ -28,6 +30,9 @@ HEADERS += \
     level.h \
     objective.h \
     vector2d.h
+
+FORMS += \
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
