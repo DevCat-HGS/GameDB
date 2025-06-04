@@ -1,79 +1,81 @@
 #include "level.h"
-#include <iostream>
-#include <algorithm>
+#include <QDebug>
 
-Level::Level() : levelNumber(0), description("") {}
-
-Level::Level(int levelNumber, const std::string& description)
-    : levelNumber(levelNumber), description(description) {}
-
-int Level::getLevelNumber() const {
-    return levelNumber;
-}
-
-std::string Level::getDescription() const {
-    return description;
-}
-
-std::vector<Objective> Level::getObjectives() const {
-    return objectives;
-}
-
-std::vector<PhysicsModel> Level::getPhysics() const {
-    return physics;
-}
-
-void Level::setLevelNumber(int levelNumber) {
-    this->levelNumber = levelNumber;
-}
-
-void Level::setDescription(const std::string& description) {
-    this->description = description;
-}
-
-void Level::addObjective(const Objective& objective) {
-    objectives.push_back(objective);
-}
-
-void Level::addPhysicsModel(const PhysicsModel& physicsModel) {
-    physics.push_back(physicsModel);
-}
-
-void Level::loadLevel() {
-    // Esta función cargará los recursos y configuración específicos del nivel
-    std::cout << "Cargando nivel " << levelNumber << ": " << description << std::endl;
-    
-    // Aquí se cargarían los recursos gráficos, enemigos, objetos, etc.
-    // También se configurarían los modelos físicos específicos del nivel
-    
-    // Configuración específica para cada nivel según la descripción del juego
+Level::Level(int number) : levelNumber(number)
+{
+    // Configurar nivel según el número
     switch (levelNumber) {
-        case 1: // Montañas de Goku
-            // Configurar física de salto (movimiento parabólico)
-            // Configurar física de enemigos (movimiento oscilatorio para abejas)
-            // Configurar física de fricción en suelo rocoso
-            break;
-            
-        case 2: // Camino al Encuentro
-            // Configurar física de objetos lanzados (trayectorias parabólicas)
-            // Configurar colisiones entre objetos móviles y estructuras
-            // Configurar plataformas móviles (movimiento sinusoidal)
-            break;
-            
-        case 3: // Aldea del Terror
-            // Configurar física de combate (colisiones dinámicas)
-            // Configurar explosiones (propagación radial)
-            // Configurar física de caída de objetos
-            break;
-            
-        default:
-            std::cout << "Nivel desconocido" << std::endl;
-            break;
+    case 1:
+        description = "Montañas de Goku: Recolección de recursos y caza";
+        physics = "gravity";
+        break;
+    case 2:
+        description = "Camino al Encuentro: Puzzles y cooperación con Bulma";
+        physics = "parabolic";
+        break;
+    case 3:
+        description = "Aldea del Terror: Combate y rescate de aldeanos";
+        physics = "oscillatory";
+        break;
+    default:
+        description = "Nivel desconocido";
+        physics = "gravity";
     }
 }
 
-bool Level::checkCompletion() {
-    // Verificar si todos los objetivos del nivel se han completado
-    return std::all_of(objectives.begin(), objectives.end(), 
-                      [](const Objective& obj) { return obj.isCompleted(); });
+Level::~Level()
+{
+    // Liberar memoria de los objetivos
+    for (Objective *objective : objectives) {
+        delete objective;
+    }
+    objectives.clear();
+}
+
+void Level::loadLevel()
+{
+    // Limpiar objetivos anteriores
+    for (Objective *objective : objectives) {
+        delete objective;
+    }
+    objectives.clear();
+    
+    // Crear objetivos según el nivel
+    switch (levelNumber) {
+    case 1:
+        objectives.append(new Objective("Recolectar 3 frutas", false));
+        objectives.append(new Objective("Cazar un jabalí", false));
+        objectives.append(new Objective("Encontrar la Dragon Ball", false));
+        break;
+    case 2:
+        objectives.append(new Objective("Resolver el puzzle del puente", false));
+        objectives.append(new Objective("Ayudar a Bulma a cruzar el río", false));
+        objectives.append(new Objective("Encontrar la cápsula de Bulma", false));
+        break;
+    case 3:
+        objectives.append(new Objective("Derrotar a 5 soldados", false));
+        objectives.append(new Objective("Rescatar a 3 aldeanos", false));
+        objectives.append(new Objective("Derrotar al jefe", false));
+        break;
+    }
+    
+    qDebug() << "Nivel" << levelNumber << "cargado:" << description;
+    qDebug() << "Física aplicada:" << physics;
+    qDebug() << "Objetivos:";
+    for (Objective *objective : objectives) {
+        qDebug() << " -" << objective->getDescription();
+    }
+}
+
+bool Level::checkCompletion()
+{
+    // Verificar si todos los objetivos están completados
+    for (Objective *objective : objectives) {
+        if (!objective->isCompleted()) {
+            return false;
+        }
+    }
+    
+    qDebug() << "¡Nivel" << levelNumber << "completado!";
+    return true;
 }

@@ -17,8 +17,7 @@ SOURCES += \
     physicsengine.cpp \
     physicsmodel.cpp \
     level.cpp \
-    objective.cpp \
-    vector2d.cpp
+    objective.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -28,8 +27,7 @@ HEADERS += \
     physicsengine.h \
     physicsmodel.h \
     level.h \
-    objective.h \
-    vector2d.h
+    objective.h
 
 FORMS += \
     mainwindow.ui
@@ -38,3 +36,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

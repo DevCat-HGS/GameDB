@@ -1,29 +1,50 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include <string>
-#include "vector2d.h"
+#include <QGraphicsPixmapItem>
+#include <QObject>
+#include <QGraphicsItem>
+#include <QString>
+#include <QPointF>
+#include <QTimer>
 
-class Enemy {
+class Enemy : public QObject, public QGraphicsPixmapItem
+{
+    Q_OBJECT
+
 public:
-    Enemy();
-    Enemy(const std::string& type, const Vector2D& position, const std::string& behavior);
+    Enemy(QString enemyType, QObject *parent = nullptr);
     
-    std::string getType() const;
-    Vector2D getPosition() const;
-    std::string getBehavior() const;
+    // Métodos según el diagrama UML
+    void act();
+    void attackPlayer();
     
-    void setType(const std::string& type);
-    void setPosition(const Vector2D& position);
-    void setBehavior(const std::string& behavior);
+    // Getters
+    QString getType() const { return type; }
+    QPointF getPosition() const { return position; }
+    QString getBehavior() const { return behavior; }
     
-    void act(); // Realiza acciones según el comportamiento definido
-    void attackPlayer(); // Ataca al jugador
+    // Setters
+    void setPosition(const QPointF &pos) { position = pos; }
+    
+public slots:
+    void move();
     
 private:
-    std::string type;
-    Vector2D position;
-    std::string behavior;
+    // Atributos según el diagrama UML
+    QString type;
+    QPointF position;
+    QString behavior;
+    
+    // Variables adicionales
+    QTimer *timer;
+    QPixmap idleSprite;
+    QPixmap attackingSprite;
+    
+    // Movimiento
+    QPointF velocity;
+    float movementPhase; // Para movimiento oscilatorio
+    bool isAttacking;
 };
 
 #endif // ENEMY_H

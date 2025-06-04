@@ -1,28 +1,26 @@
 #ifndef PHYSICSENGINE_H
 #define PHYSICSENGINE_H
 
-#include <vector>
+#include <QList>
+#include <QGraphicsItem>
 #include "physicsmodel.h"
 
-class PhysicsEngine {
+class PhysicsEngine
+{
 public:
     PhysicsEngine();
+    ~PhysicsEngine();
     
-    void addModel(const PhysicsModel& model);
-    void removeModel(const std::string& modelName);
-    PhysicsModel* getModel(const std::string& modelName);
+    // Método según el diagrama UML
+    void applyPhysics(QGraphicsItem *entity);
     
-    void applyPhysics(void* entity); // En una implementación real, esto sería un tipo específico
-    
-    // Métodos para diferentes tipos de física mencionados en la descripción
-    void applyParabolicMotion(void* entity, float initialVelocity, float angle);
-    void applyOscillatoryMotion(void* entity, float amplitude, float frequency);
-    void applyFriction(void* entity, float frictionCoefficient);
-    void applySinusoidalMotion(void* entity, float amplitude, float frequency);
-    void applyRadialPropagation(void* entity, float initialRadius, float propagationSpeed);
+    // Getters y setters
+    QList<PhysicsModel*> getModels() const { return models; }
+    void addModel(PhysicsModel *model);
     
 private:
-    std::vector<PhysicsModel> models;
+    // Atributos según el diagrama UML
+    QList<PhysicsModel*> models;
 };
 
 #endif // PHYSICSENGINE_H

@@ -1,80 +1,64 @@
 #include "physicsengine.h"
-#include <algorithm>
-#include <iostream>
-#include <cmath>
+#include "player.h"
+#include "enemy.h"
+#include <QDebug>
 
-PhysicsEngine::PhysicsEngine() {}
-
-void PhysicsEngine::addModel(const PhysicsModel& model) {
-    models.push_back(model);
+PhysicsEngine::PhysicsEngine()
+{
+    // Crear modelos físicos predefinidos
+    PhysicsModel *gravity = new PhysicsModel("gravity", "F = m*g");
+    PhysicsModel *parabolic = new PhysicsModel("parabolic", "y = y0 + v0*t + 0.5*a*t^2");
+    PhysicsModel *oscillatory = new PhysicsModel("oscillatory", "x = A*sin(w*t)");
+    PhysicsModel *friction = new PhysicsModel("friction", "F = -u*N*v");
+    
+    // Añadir modelos a la lista
+    models.append(gravity);
+    models.append(parabolic);
+    models.append(oscillatory);
+    models.append(friction);
 }
 
-void PhysicsEngine::removeModel(const std::string& modelName) {
-    models.erase(
-        std::remove_if(models.begin(), models.end(),
-            [&modelName](const PhysicsModel& model) { return model.getName() == modelName; }),
-        models.end());
-}
-
-PhysicsModel* PhysicsEngine::getModel(const std::string& modelName) {
-    for (auto& model : models) {
-        if (model.getName() == modelName) {
-            return &model;
-        }
+PhysicsEngine::~PhysicsEngine()
+{
+    // Liberar memoria de los modelos
+    for (PhysicsModel *model : models) {
+        delete model;
     }
-    return nullptr;
+    models.clear();
 }
 
-void PhysicsEngine::applyPhysics(void* entity) {
-    // Esta función aplicará el modelo físico apropiado a la entidad
-    // En una implementación real, se determinaría qué modelo aplicar basado en el tipo de entidad
-    std::cout << "Aplicando física a entidad" << std::endl;
+void PhysicsEngine::applyPhysics(QGraphicsItem *entity)
+{
+    // Aplicar física según el tipo de entidad
+    Player *player = dynamic_cast<Player*>(entity);
+    if (player) {
+        // Aplicar gravedad al jugador
+        QPointF velocity = player->getVelocity();
+        
+        // Aplicar fricción en el suelo
+        if (player->y() >= player->scene()->height() - player->pixmap().height()) {
+            // Está en el suelo, aplicar fricción
+            if (velocity.x() > 0) {
+                velocity.setX(qMax(0.0, velocity.x() - 0.2));
+            } else if (velocity.x() < 0) {
+                velocity.setX(qMin(0.0, velocity.x() + 0.2));
+            }
+        }
+        
+        player->setVelocity(velocity);
+        player->move();
+        return;
+    }
     
-    // Aquí se llamaría a los métodos específicos según el tipo de física requerida
+    Enemy *enemy = dynamic_cast<Enemy*>(entity);
+    if (enemy) {
+        // Los enemigos ya tienen su propia física en su método move()
+        enemy->act();
+        return;
+    }
 }
 
-void PhysicsEngine::applyParabolicMotion(void* entity, float initialVelocity, float angle) {
-    // Implementación del movimiento parabólico (saltos, objetos lanzados)
-    // En una implementación real, se actualizaría la posición de la entidad según las ecuaciones del movimiento parabólico
-    std::cout << "Aplicando movimiento parabólico" << std::endl;
-    
-    // Ejemplo de ecuaciones para movimiento parabólico:
-    // x = x0 + v0 * cos(angle) * t
-    // y = y0 + v0 * sin(angle) * t - 0.5 * g * t^2
-}
-
-void PhysicsEngine::applyOscillatoryMotion(void* entity, float amplitude, float frequency) {
-    // Implementación del movimiento oscilatorio (enemigos como abejas)
-    // En una implementación real, se actualizaría la posición de la entidad según las ecuaciones del movimiento oscilatorio
-    std::cout << "Aplicando movimiento oscilatorio" << std::endl;
-    
-    // Ejemplo de ecuaciones para movimiento oscilatorio:
-    // x = x0 + amplitude * sin(frequency * t)
-}
-
-void PhysicsEngine::applyFriction(void* entity, float frictionCoefficient) {
-    // Implementación de la fricción (movimiento en suelo rocoso)
-    // En una implementación real, se reduciría la velocidad de la entidad según el coeficiente de fricción
-    std::cout << "Aplicando fricción" << std::endl;
-    
-    // Ejemplo de ecuación para fricción:
-    // v = v0 * (1 - frictionCoefficient)
-}
-
-void PhysicsEngine::applySinusoidalMotion(void* entity, float amplitude, float frequency) {
-    // Implementación del movimiento sinusoidal (plataformas móviles)
-    // En una implementación real, se actualizaría la posición de la entidad según las ecuaciones del movimiento sinusoidal
-    std::cout << "Aplicando movimiento sinusoidal" << std::endl;
-    
-    // Ejemplo de ecuaciones para movimiento sinusoidal:
-    // y = y0 + amplitude * sin(frequency * t)
-}
-
-void PhysicsEngine::applyRadialPropagation(void* entity, float initialRadius, float propagationSpeed) {
-    // Implementación de la propagación radial (explosiones)
-    // En una implementación real, se afectaría a todas las entidades dentro de un radio creciente
-    std::cout << "Aplicando propagación radial" << std::endl;
-    
-    // Ejemplo de ecuación para propagación radial:
-    // radius = initialRadius + propagationSpeed * t
+void PhysicsEngine::addModel(PhysicsModel *model)
+{
+    models.append(model);
 }

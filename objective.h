@@ -1,23 +1,24 @@
 #ifndef OBJECTIVE_H
 #define OBJECTIVE_H
 
-#include <string>
+#include <QString>
 
-class Objective {
+class Objective
+{
 public:
-    Objective();
-    Objective(const std::string& description);
+    Objective(const QString &desc, bool isComplete = false);
     
-    std::string getDescription() const;
-    bool isCompleted() const;
+    // Método según el diagrama UML
+    bool check();
     
-    void setDescription(const std::string& description);
-    void setCompleted(bool completed);
-    
-    bool check(); // Verifica si el objetivo se ha completado
+    // Getters y setters
+    QString getDescription() const { return description; }
+    bool isCompleted() const { return completed; }
+    void setCompleted(bool value) { completed = value; }
     
 private:
-    std::string description;
+    // Atributos según el diagrama UML
+    QString description;
     bool completed;
 };
 

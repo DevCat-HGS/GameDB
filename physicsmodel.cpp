@@ -1,29 +1,25 @@
 #include "physicsmodel.h"
-#include <iostream>
+#include <QDebug>
 
-PhysicsModel::PhysicsModel() : name(""), formula("") {}
-
-PhysicsModel::PhysicsModel(const std::string& name, const std::string& formula)
-    : name(name), formula(formula) {}
-
-std::string PhysicsModel::getName() const {
-    return name;
+PhysicsModel::PhysicsModel(const QString &modelName, const QString &modelFormula)
+    : name(modelName), formula(modelFormula)
+{
 }
 
-std::string PhysicsModel::getFormula() const {
-    return formula;
-}
-
-void PhysicsModel::setName(const std::string& name) {
-    this->name = name;
-}
-
-void PhysicsModel::setFormula(const std::string& formula) {
-    this->formula = formula;
-}
-
-void PhysicsModel::simulate() {
-    // Esta función se implementará con la lógica específica para cada modelo físico
-    // Por ejemplo, para movimiento parabólico, movimiento oscilatorio, etc.
-    std::cout << "Simulando modelo físico: " << name << " con fórmula: " << formula << std::endl;
+void PhysicsModel::simulate()
+{
+    // Implementación básica de simulación según el tipo de modelo
+    if (name == "gravity") {
+        qDebug() << "Simulando gravedad con fórmula:" << formula;
+        // Implementación real dependería de los parámetros específicos
+    } else if (name == "parabolic") {
+        qDebug() << "Simulando movimiento parabólico con fórmula:" << formula;
+        // Cálculos para trayectorias parabólicas
+    } else if (name == "oscillatory") {
+        qDebug() << "Simulando movimiento oscilatorio con fórmula:" << formula;
+        // Cálculos para movimientos oscilatorios
+    } else if (name == "friction") {
+        qDebug() << "Simulando fricción con fórmula:" << formula;
+        // Cálculos para fricción
+    }
 }

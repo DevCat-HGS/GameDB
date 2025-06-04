@@ -1,0 +1,28 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <!-- Backgrounds -->
+        <file>images/backgrounds/level1_background.png</file>
+        <file>images/backgrounds/level2_background.png</file>
+        <file>images/backgrounds/level3_background.png</file>
+        
+        <!-- Characters -->
+        <file>images/characters/goku_idle.png</file>
+        <file>images/characters/goku_running.png</file>
+        <file>images/characters/goku_jumping.png</file>
+        <file>images/characters/goku_attacking.png</file>
+        <file>images/characters/bulma_idle.png</file>
+        <file>images/characters/bulma_running.png</file>
+        
+        <!-- Enemies -->
+        <file>images/enemies/enemy1_idle.png</file>
+        <file>images/enemies/enemy1_attacking.png</file>
+        <file>images/enemies/enemy2_idle.png</file>
+        <file>images/enemies/enemy2_attacking.png</file>
+        
+        <!-- Items -->
+        <file>images/items/dragonball.png</file>
+        <file>images/items/fruit.png</file>
+        <file>images/items/capsule.png</file>
+    </qresource>
+</RCC>

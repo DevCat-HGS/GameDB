@@ -1,84 +1,133 @@
 #include "player.h"
-#include <iostream>
-#include <algorithm> // Para std::max
+#include <QDebug>
 
-Player::Player() : name(""), position(Vector2D()), velocity(Vector2D()), health(100) {}
-
-Player::Player(const std::string& name, const Vector2D& position, const Vector2D& velocity, int health)
-    : name(name), position(position), velocity(velocity), health(health) {}
-
-std::string Player::getName() const {
-    return name;
-}
-
-Vector2D Player::getPosition() const {
-    return position;
-}
-
-Vector2D Player::getVelocity() const {
-    return velocity;
-}
-
-int Player::getHealth() const {
-    return health;
-}
-
-void Player::setName(const std::string& name) {
-    this->name = name;
-}
-
-void Player::setPosition(const Vector2D& position) {
-    this->position = position;
-}
-
-void Player::setVelocity(const Vector2D& velocity) {
-    this->velocity = velocity;
-}
-
-void Player::setHealth(int health) {
-    this->health = health;
-}
-
-void Player::move() {
-    // Esta función actualizará la posición del jugador según su velocidad
-    // En una implementación real, se considerarían las entradas del usuario y la física del juego
-    position = position + velocity;
+Player::Player(QObject *parent) : QObject(parent)
+{
+    // Inicializar atributos
+    name = "Goku";
+    position = QPointF(0, 0);
+    velocity = QPointF(0, 0);
+    health = 100;
     
-    std::cout << name << " se mueve a la posición (" << position.getX() << ", " << position.getY() << ")" << std::endl;
+    // Inicializar estados
+    isMovingLeft = false;
+    isMovingRight = false;
+    isJumping = false;
+    isAttacking = false;
+    
+    // Cargar sprites
+    idleSprite = QPixmap(":/images/characters/goku_idle.png");
+    runningSprite = QPixmap(":/images/characters/goku_running.png");
+    jumpingSprite = QPixmap(":/images/characters/goku_jumping.png");
+    attackingSprite = QPixmap(":/images/characters/goku_attacking.png");
+    
+    // Establecer sprite inicial
+    setPixmap(idleSprite);
 }
 
-void Player::attack() {
-    // Esta función implementará el ataque del jugador
-    std::cout << name << " realiza un ataque" << std::endl;
+void Player::move()
+{
+    // Actualizar posición basada en velocidad
+    setPos(x() + velocity.x(), y() + velocity.y());
+    position = QPointF(x(), y());
     
-    // En una implementación real, se verificaría si hay enemigos en el rango de ataque
-    // y se les aplicaría daño
-}
-
-void Player::collectItem() {
-    // Esta función implementará la recolección de ítems
-    std::cout << name << " recoge un ítem" << std::endl;
+    // Cambiar sprite según el estado
+    if (isAttacking) {
+        setPixmap(attackingSprite);
+    } else if (isJumping) {
+        setPixmap(jumpingSprite);
+    } else if (isMovingLeft || isMovingRight) {
+        setPixmap(runningSprite);
+        
+        // Voltear sprite según dirección
+        if (isMovingLeft) {
+            setTransform(QTransform().scale(-1, 1));
+        } else {
+            setTransform(QTransform());
+        }
+    } else {
+        setPixmap(idleSprite);
+    }
     
-    // En una implementación real, se verificaría qué tipo de ítem se recogió
-    // y se aplicarían sus efectos (aumentar salud, puntos, etc.)
-}
-
-void Player::takeDamage(int amount) {
-    // Reduce la salud del jugador
-    health = std::max(0, health - amount);
-    std::cout << name << " recibe " << amount << " de daño. Salud restante: " << health << std::endl;
-    
-    if (health <= 0) {
-        std::cout << name << " ha sido derrotado" << std::endl;
+    // Limitar movimiento dentro de los límites de la escena
+    if (scene()) {
+        if (x() < 0) {
+            setPos(0, y());
+        } else if (x() > scene()->width() - pixmap().width()) {
+            setPos(scene()->width() - pixmap().width(), y());
+        }
+        
+        // Aplicar gravedad si está en el aire
+        if (y() < scene()->height() - pixmap().height()) {
+            velocity.setY(velocity.y() + 0.5); // Gravedad
+        } else {
+            setPos(x(), scene()->height() - pixmap().height());
+            velocity.setY(0);
+            isJumping = false;
+        }
     }
 }
 
-void Player::heal(int amount) {
-    // Aumenta la salud del jugador (con un máximo de 100)
-    health = std::min(100, health + amount);
-    std::cout << name << " recupera " << amount << " de salud. Salud actual: " << health << std::endl;
+void Player::attack()
+{
+    isAttacking = true;
+    
+    // Implementar lógica de ataque
+    qDebug() << name << "está atacando!";
+    
+    // Restaurar estado después de un tiempo (podría usar QTimer)
+    QTimer::singleShot(500, this, [this]() {
+        isAttacking = false;
+    });
 }
 
-bool Player::isAlive() const {
-    return health > 0;
+void Player::collectItem()
+{
+    // Implementar lógica para recolectar objetos
+    qDebug() << name << "ha recogido un objeto!";
+}
+
+void Player::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Left:
+        isMovingLeft = true;
+        velocity.setX(-5);
+        break;
+    case Qt::Key_Right:
+        isMovingRight = true;
+        velocity.setX(5);
+        break;
+    case Qt::Key_Up:
+    case Qt::Key_Space:
+        if (!isJumping) {
+            isJumping = true;
+            velocity.setY(-15); // Impulso hacia arriba
+        }
+        break;
+    case Qt::Key_Z:
+        attack();
+        break;
+    case Qt::Key_X:
+        collectItem();
+        break;
+    }
+}
+
+void Player::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Left:
+        isMovingLeft = false;
+        if (!isMovingRight) {
+            velocity.setX(0);
+        }
+        break;
+    case Qt::Key_Right:
+        isMovingRight = false;
+        if (!isMovingLeft) {
+            velocity.setX(0);
+        }
+        break;
+    }
 }

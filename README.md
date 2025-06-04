@@ -1,54 +1,53 @@
-# GameDB - Dragon Ball: Secret of the Dragon Ball
-
-Un videojuego basado en el primer capítulo de Dragon Ball, "Secret of the Dragon Ball", desarrollado con Qt Creator y C++.
+# Dragon Ball Game: Secret of the Dragon Ball
 
 ## Descripción
+Este proyecto implementa un juego basado en Dragon Ball, específicamente en el capítulo 'Secret of the Dragon Ball'. El juego está desarrollado en C++ utilizando el framework Qt, y consta de tres niveles con diferentes mecánicas físicas y objetivos.
 
-Este juego está inspirado en el inicio de la icónica serie Dragon Ball, donde Goku, un niño con una fuerza descomunal y una cola de mono, vive en la montaña tras la muerte de su abuelo adoptivo. Su encuentro con Bulma, una joven brillante que busca las míticas Esferas del Dragón, desencadena una aventura épica.
+## Características
+- Juego de plataformas 2D con físicas realistas
+- Tres niveles con diferentes objetivos y mecánicas
+- Personaje principal (Goku) con movimientos y ataques
+- Diferentes tipos de enemigos con comportamientos únicos
+- Motor de física personalizado con varios modelos físicos
 
 ## Niveles del Juego
-
-### Nivel 1: Montañas de Goku
-- **Dinámica**: El jugador controla a Goku en su hogar en las montañas. El objetivo es recolectar recursos y cazar para sobrevivir.
-- **Físicas**: Movimiento parabólico al saltar, movimiento oscilatorio para enemigos como abejas, fricción en suelo rocoso.
-- **Retos**: Recolectar frutas colgantes y derrotar un jabalí.
-- **Objetivo**: Preparar provisiones antes de salir de viaje.
-
-### Nivel 2: Camino al Encuentro
-- **Dinámica**: Goku se encuentra con Bulma. El jugador debe resolver acertijos para ayudarla a recuperar su cápsula perdida.
-- **Físicas**: Trayectorias parabólicas para objetos lanzados, colisiones entre objetos y estructuras, plataformas móviles con movimiento sinusoidal.
-- **Retos**: Resolver puzzles para cruzar el río y recuperar una cápsula oculta.
-- **Objetivo**: Formar equipo con Bulma y continuar la aventura juntos.
-
-### Nivel 3: Aldea del Terror
-- **Dinámica**: Goku y Bulma llegan a una aldea aterrorizada por un villano que busca una Esfera del Dragón.
-- **Físicas**: Combate con colisiones dinámicas, explosiones con propagación radial, caída de objetos desde estructuras.
-- **Retos**: Derrotar al mini-jefe del nivel y rescatar 3 aldeanos escondidos.
-- **Objetivo**: Obtener la primera Esfera del Dragón.
-
-## Estructura del Proyecto
-
-- **Game**: Clase principal que coordina todos los elementos del juego.
-- **Player**: Representa al personaje principal (Goku) controlado por el jugador.
-- **Enemy**: Representa a los enemigos del juego con diferentes comportamientos.
-- **PhysicsEngine**: Gestiona la física del juego aplicando diferentes modelos físicos.
-- **PhysicsModel**: Define fórmulas y comportamientos físicos específicos.
-- **Level**: Representa los niveles del juego con sus objetivos y física específica.
-- **Objective**: Define los objetivos que el jugador debe completar en cada nivel.
-- **Vector2D**: Clase utilitaria para representar posiciones y velocidades en 2D.
+1. **Montañas de Goku**: Recolección de recursos y caza
+2. **Camino al Encuentro**: Puzzles y cooperación con Bulma
+3. **Aldea del Terror**: Combate y rescate de aldeanos
 
 ## Requisitos
-
-- Qt Creator 5.x o superior
-- Compilador C++ compatible con C++17
+- Qt 5.12 o superior
+- Compilador compatible con C++17
 
 ## Compilación y Ejecución
+1. Abrir el archivo `DragonBallGame.pro` en Qt Creator
+2. Configurar el kit de compilación
+3. Compilar el proyecto (Ctrl+B)
+4. Ejecutar el juego (Ctrl+R)
 
-1. Abrir el archivo `GameDB.pro` en Qt Creator.
-2. Configurar el kit de compilación adecuado.
-3. Compilar el proyecto (Ctrl+B).
-4. Ejecutar el juego (Ctrl+R).
+## Controles
+- **Flechas izquierda/derecha**: Mover a Goku
+- **Flecha arriba / Espacio**: Saltar
+- **Z**: Atacar
+- **X**: Recoger objetos
 
-## Licencia
+## Estructura del Proyecto
+El proyecto sigue una arquitectura orientada a objetos con las siguientes clases principales:
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+- **Game**: Controla el flujo del juego
+- **Player (Goku)**: Representa al personaje principal
+- **Enemy**: Representa a los enemigos del juego
+- **PhysicsEngine**: Motor de física del juego
+- **PhysicsModel**: Modelos físicos específicos
+- **Level**: Representa cada nivel del juego
+- **Objective**: Objetivos a completar en cada nivel
+
+## Implementación de Físicas
+El juego implementa varios modelos físicos:
+- Movimiento parabólico (saltos)
+- Movimiento oscilatorio (enemigos)
+- Colisiones dinámicas
+- Fricción y gravedad
+
+## Autor
+Desarrollado como proyecto de demostración para GameDB.

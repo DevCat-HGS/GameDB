@@ -1,167 +1,185 @@
 #include "game.h"
-#include <iostream>
+#include <QKeyEvent>
+#include <QGraphicsPixmapItem>
+#include <QDebug>
 
-Game::Game() : currentLevel(0) {
-    loadLevels();
-    initializePhysics();
-}
-
-int Game::getCurrentLevel() const {
-    return currentLevel;
-}
-
-Player Game::getPlayer() const {
-    return player;
-}
-
-std::vector<Enemy> Game::getEnemies() const {
-    return enemies;
-}
-
-PhysicsEngine Game::getPhysicsEngine() const {
-    return physicsEngine;
-}
-
-void Game::setCurrentLevel(int level) {
-    if (level >= 0 && level < static_cast<int>(levels.size())) {
-        currentLevel = level;
-    }
-}
-
-void Game::setPlayer(const Player& player) {
-    this->player = player;
-}
-
-void Game::addEnemy(const Enemy& enemy) {
-    enemies.push_back(enemy);
-}
-
-void Game::removeEnemy(int index) {
-    if (index >= 0 && index < static_cast<int>(enemies.size())) {
-        enemies.erase(enemies.begin() + index);
-    }
-}
-
-void Game::setPhysicsEngine(const PhysicsEngine& physicsEngine) {
-    this->physicsEngine = physicsEngine;
-}
-
-void Game::startGame() {
-    std::cout << "¡Iniciando juego!" << std::endl;
+Game::Game(QWidget *parent) : QGraphicsView(parent)
+{
+    // Configuración de la vista
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setFixedSize(800, 600);
     
-    // Inicializar el jugador (Goku)
-    player = Player("Goku", Vector2D(100, 100), Vector2D(0, 0), 100);
+    // Inicialización de variables
+    scene = new QGraphicsScene();
+    scene->setSceneRect(0, 0, 800, 600);
+    setScene(scene);
     
-    // Limpiar enemigos anteriores
-    enemies.clear();
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     
-    // Establecer el nivel inicial
     currentLevel = 0;
-    
-    // Cargar el primer nivel
-    if (!levels.empty()) {
-        levels[currentLevel].loadLevel();
-        std::cout << "Nivel 1: " << levels[currentLevel].getDescription() << std::endl;
-    }
+    player = nullptr;
+    physicsEngine = nullptr;
+    level = nullptr;
 }
 
-void Game::nextLevel() {
-    // Avanzar al siguiente nivel
+Game::~Game()
+{
+    cleanupLevel();
+    delete scene;
+    delete timer;
+}
+
+void Game::startGame()
+{
+    // Mostrar la vista
+    show();
+    
+    // Inicializar el motor de física
+    physicsEngine = new PhysicsEngine();
+    
+    // Configurar el primer nivel
+    setupLevel(1);
+    
+    // Iniciar el bucle de juego
+    timer->start(16); // Aproximadamente 60 FPS
+}
+
+void Game::nextLevel()
+{
+    // Limpiar el nivel actual
+    cleanupLevel();
+    
+    // Incrementar el nivel
     currentLevel++;
     
-    if (currentLevel < static_cast<int>(levels.size())) {
-        // Limpiar enemigos del nivel anterior
-        enemies.clear();
-        
-        // Cargar el nuevo nivel
-        levels[currentLevel].loadLevel();
-        std::cout << "Nivel " << (currentLevel + 1) << ": " << levels[currentLevel].getDescription() << std::endl;
+    // Configurar el siguiente nivel
+    if (currentLevel <= 3) { // Tenemos 3 niveles en total
+        setupLevel(currentLevel);
     } else {
-        // El jugador ha completado todos los niveles
-        std::cout << "¡Felicidades! Has completado todos los niveles del juego." << std::endl;
+        // Fin del juego - Victoria
+        qDebug() << "¡Juego completado!";
+        // Aquí se podría mostrar una pantalla de victoria
     }
 }
 
-void Game::update() {
-    // Actualizar el estado del juego
-    
-    // Actualizar al jugador
-    if (player.isAlive()) {
-        player.move();
-    } else {
-        std::cout << "Game Over: El jugador ha sido derrotado" << std::endl;
-        return;
+void Game::update()
+{
+    // Actualizar la física
+    if (physicsEngine && player) {
+        physicsEngine->applyPhysics(player);
+        
+        // Actualizar enemigos
+        for (Enemy* enemy : enemies) {
+            physicsEngine->applyPhysics(enemy);
+            enemy->act();
+        }
     }
     
-    // Actualizar enemigos
-    for (auto& enemy : enemies) {
-        enemy.act();
-    }
-    
-    // Aplicar física
-    physicsEngine.applyPhysics(&player);
-    for (auto& enemy : enemies) {
-        physicsEngine.applyPhysics(&enemy);
-    }
-    
-    // Verificar si se ha completado el nivel actual
-    if (currentLevel < static_cast<int>(levels.size()) && levels[currentLevel].checkCompletion()) {
-        std::cout << "¡Nivel " << (currentLevel + 1) << " completado!" << std::endl;
+    // Comprobar objetivos del nivel
+    if (level && level->checkCompletion()) {
         nextLevel();
     }
 }
 
-void Game::loadLevels() {
-    // Crear y configurar los niveles del juego según la descripción
+void Game::setupLevel(int levelNumber)
+{
+    currentLevel = levelNumber;
     
-    // Nivel 1: Montañas de Goku
-    Level level1(1, "Montañas de Goku");
-    level1.addObjective(Objective("Recolectar frutas colgantes"));
-    level1.addObjective(Objective("Derrotar un jabalí"));
-    level1.addPhysicsModel(PhysicsModel("Salto", "Movimiento parabólico"));
-    level1.addPhysicsModel(PhysicsModel("Enemigo Abeja", "Movimiento oscilatorio"));
-    level1.addPhysicsModel(PhysicsModel("Suelo Rocoso", "Fricción"));
-    levels.push_back(level1);
+    // Crear el nivel
+    level = new Level(levelNumber);
     
-    // Nivel 2: Camino al Encuentro
-    Level level2(2, "Camino al Encuentro");
-    level2.addObjective(Objective("Resolver puzzles para cruzar el río"));
-    level2.addObjective(Objective("Recuperar una cápsula oculta"));
-    level2.addPhysicsModel(PhysicsModel("Objetos Lanzados", "Trayectoria parabólica"));
-    level2.addPhysicsModel(PhysicsModel("Colisiones", "Colisiones físicas"));
-    level2.addPhysicsModel(PhysicsModel("Plataformas Móviles", "Movimiento sinusoidal"));
-    levels.push_back(level2);
+    // Configurar el fondo según el nivel
+    QGraphicsPixmapItem *background = nullptr;
+    switch (levelNumber) {
+    case 1:
+        background = scene->addPixmap(QPixmap(":/images/backgrounds/level1_background.png"));
+        break;
+    case 2:
+        background = scene->addPixmap(QPixmap(":/images/backgrounds/level2_background.png"));
+        break;
+    case 3:
+        background = scene->addPixmap(QPixmap(":/images/backgrounds/level3_background.png"));
+        break;
+    }
     
-    // Nivel 3: Aldea del Terror
-    Level level3(3, "Aldea del Terror");
-    level3.addObjective(Objective("Derrotar al mini-jefe del nivel"));
-    level3.addObjective(Objective("Rescatar 3 aldeanos escondidos"));
-    level3.addPhysicsModel(PhysicsModel("Combate", "Colisiones dinámicas"));
-    level3.addPhysicsModel(PhysicsModel("Explosiones", "Propagación radial"));
-    level3.addPhysicsModel(PhysicsModel("Caída de Objetos", "Caída desde estructuras"));
-    levels.push_back(level3);
+    if (background) {
+        background->setZValue(-1); // Colocar en el fondo
+    }
+    
+    // Crear el jugador
+    player = new Player();
+    scene->addItem(player);
+    player->setPos(50, 450); // Posición inicial
+    
+    // Crear enemigos según el nivel
+    switch (levelNumber) {
+    case 1: {
+        // Nivel 1: Un jabalí
+        Enemy *jabali = new Enemy("jabali");
+        jabali->setPos(600, 450);
+        scene->addItem(jabali);
+        enemies.append(jabali);
+        break;
+    }
+    case 2: {
+        // Nivel 2: Algunos enemigos básicos
+        for (int i = 0; i < 3; i++) {
+            Enemy *enemy = new Enemy("basic");
+            enemy->setPos(300 + i * 150, 450);
+            scene->addItem(enemy);
+            enemies.append(enemy);
+        }
+        break;
+    }
+    case 3: {
+        // Nivel 3: Más enemigos y un mini-jefe
+        for (int i = 0; i < 5; i++) {
+            Enemy *enemy = new Enemy("soldier");
+            enemy->setPos(200 + i * 100, 450);
+            scene->addItem(enemy);
+            enemies.append(enemy);
+        }
+        
+        Enemy *boss = new Enemy("boss");
+        boss->setPos(700, 400);
+        scene->addItem(boss);
+        enemies.append(boss);
+        break;
+    }
+    }
+    
+    // Cargar el nivel
+    level->loadLevel();
+    
+    // Dar el foco al jugador para recibir eventos de teclado
+    player->setFlag(QGraphicsItem::ItemIsFocusable);
+    player->setFocus();
 }
 
-void Game::initializePhysics() {
-    // Inicializar los modelos físicos del juego
+void Game::cleanupLevel()
+{
+    // Limpiar enemigos
+    for (Enemy* enemy : enemies) {
+        scene->removeItem(enemy);
+        delete enemy;
+    }
+    enemies.clear();
     
-    // Movimiento parabólico (saltos, objetos lanzados)
-    PhysicsModel parabolicModel("Parabólico", "y = y0 + v0*sin(angle)*t - 0.5*g*t^2");
-    physicsEngine.addModel(parabolicModel);
+    // Limpiar jugador
+    if (player) {
+        scene->removeItem(player);
+        delete player;
+        player = nullptr;
+    }
     
-    // Movimiento oscilatorio (enemigos como abejas)
-    PhysicsModel oscillatoryModel("Oscilatorio", "x = x0 + A*sin(w*t)");
-    physicsEngine.addModel(oscillatoryModel);
+    // Limpiar nivel
+    if (level) {
+        delete level;
+        level = nullptr;
+    }
     
-    // Fricción (movimiento en suelo rocoso)
-    PhysicsModel frictionModel("Fricción", "v = v0 * (1 - mu)");
-    physicsEngine.addModel(frictionModel);
-    
-    // Movimiento sinusoidal (plataformas móviles)
-    PhysicsModel sinusoidalModel("Sinusoidal", "y = y0 + A*sin(w*t)");
-    physicsEngine.addModel(sinusoidalModel);
-    
-    // Propagación radial (explosiones)
-    PhysicsModel radialModel("Radial", "r = r0 + v*t");
-    physicsEngine.addModel(radialModel);
+    // Limpiar la escena
+    scene->clear();
 }

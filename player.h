@@ -1,37 +1,56 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <string>
-#include "vector2d.h"
+#include <QGraphicsPixmapItem>
+#include <QObject>
+#include <QGraphicsItem>
+#include <QKeyEvent>
+#include <QString>
 
-class Player {
+class Player : public QObject, public QGraphicsPixmapItem
+{
+    Q_OBJECT
+
 public:
-    Player();
-    Player(const std::string& name, const Vector2D& position, const Vector2D& velocity, int health);
+    Player(QObject *parent = nullptr);
     
-    std::string getName() const;
-    Vector2D getPosition() const;
-    Vector2D getVelocity() const;
-    int getHealth() const;
+    // Métodos según el diagrama UML
+    void move();
+    void attack();
+    void collectItem();
     
-    void setName(const std::string& name);
-    void setPosition(const Vector2D& position);
-    void setVelocity(const Vector2D& velocity);
-    void setHealth(int health);
+    // Propiedades según el diagrama UML
+    QString getName() const { return name; }
+    QPointF getPosition() const { return position; }
+    QPointF getVelocity() const { return velocity; }
+    int getHealth() const { return health; }
     
-    void move(); // Mueve al jugador según su velocidad y las entradas del usuario
-    void attack(); // Realiza un ataque
-    void collectItem(); // Recoge un ítem
+    // Setters
+    void setVelocity(const QPointF &vel) { velocity = vel; }
+    void setHealth(int h) { health = h; }
     
-    void takeDamage(int amount); // Reduce la salud del jugador
-    void heal(int amount); // Aumenta la salud del jugador
-    bool isAlive() const; // Verifica si el jugador sigue vivo
+    // Manejo de eventos de teclado
+    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
     
 private:
-    std::string name;
-    Vector2D position;
-    Vector2D velocity;
+    // Atributos según el diagrama UML
+    QString name;
+    QPointF position;
+    QPointF velocity;
     int health;
+    
+    // Variables adicionales para el control del jugador
+    bool isMovingLeft;
+    bool isMovingRight;
+    bool isJumping;
+    bool isAttacking;
+    
+    // Sprites para diferentes estados
+    QPixmap idleSprite;
+    QPixmap runningSprite;
+    QPixmap jumpingSprite;
+    QPixmap attackingSprite;
 };
 
 #endif // PLAYER_H
