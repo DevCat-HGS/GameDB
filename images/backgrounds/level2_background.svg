@@ -1,0 +1,67 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky -->
+  <rect width="800" height="600" fill="#ADD8E6"/>
+  
+  <!-- Sun -->
+  <circle cx="100" cy="100" r="60" fill="#FFA500"/>
+  
+  <!-- Mountains in background -->
+  <polygon points="0,300 100,200 200,250 300,150 400,250 500,200 600,250 700,200 800,300 800,600 0,600" fill="#808080"/>
+  
+  <!-- River -->
+  <path d="M0,400 C100,380 200,420 300,400 C400,380 500,420 600,400 C700,380 800,420 800,400 L800,500 C700,480 600,520 500,500 C400,480 300,520 200,500 C100,480 0,520 0,500 Z" fill="#4682B4"/>
+  
+  <!-- Water animation effect -->
+  <path d="M0,420 C50,410 100,430 150,420 C200,410 250,430 300,420 C350,410 400,430 450,420 C500,410 550,430 600,420 C650,410 700,430 750,420 C800,410 850,430 900,420" stroke="#87CEEB" stroke-width="2" fill="none"/>
+  
+  <path d="M0,440 C50,430 100,450 150,440 C200,430 250,450 300,440 C350,430 400,450 450,440 C500,430 550,450 600,440 C650,430 700,450 750,440 C800,430 850,450 900,440" stroke="#87CEEB" stroke-width="2" fill="none"/>
+  
+  <!-- Ground on left side -->
+  <rect x="0" y="400" width="200" height="200" fill="#8B4513"/>
+  
+  <!-- Ground on right side -->
+  <rect x="600" y="400" width="200" height="200" fill="#8B4513"/>
+  
+  <!-- Broken bridge -->
+  <rect x="200" y="390" width="100" height="20" fill="#A0522D"/>
+  <rect x="500" y="390" width="100" height="20" fill="#A0522D"/>
+  
+  <!-- Bridge planks -->
+  <rect x="200" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="220" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="240" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="260" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="280" y="390" width="10" height="20" fill="#8B4513"/>
+  
+  <rect x="500" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="520" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="540" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="560" y="390" width="10" height="20" fill="#8B4513"/>
+  <rect x="580" y="390" width="10" height="20" fill="#8B4513"/>
+  
+  <!-- Trees on left side -->
+  <g transform="translate(50, 350)">
+    <rect x="-10" y="0" width="20" height="50" fill="#8B4513"/>
+    <polygon points="0,-50 -40,0 40,0" fill="#228B22"/>
+    <polygon points="0,-80 -30,-30 30,-30" fill="#228B22"/>
+  </g>
+  
+  <g transform="translate(150, 350)">
+    <rect x="-10" y="0" width="20" height="50" fill="#8B4513"/>
+    <polygon points="0,-50 -40,0 40,0" fill="#228B22"/>
+    <polygon points="0,-80 -30,-30 30,-30" fill="#228B22"/>
+  </g>
+  
+  <!-- Trees on right side -->
+  <g transform="translate(650, 350)">
+    <rect x="-10" y="0" width="20" height="50" fill="#8B4513"/>
+    <polygon points="0,-50 -40,0 40,0" fill="#228B22"/>
+    <polygon points="0,-80 -30,-30 30,-30" fill="#228B22"/>
+  </g>
+  
+  <g transform="translate(750, 350)">
+    <rect x="-10" y="0" width="20" height="50" fill="#8B4513"/>
+    <polygon points="0,-50 -40,0 40,0" fill="#228B22"/>
+    <polygon points="0,-80 -30,-30 30,-30" fill="#228B22"/>
+  </g>
+</svg>

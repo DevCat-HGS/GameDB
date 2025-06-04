@@ -1,0 +1,48 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Enemy 2 (Humanoid Soldier) Attacking Pose -->
+  
+  <!-- Head with helmet (slightly tilted for attack) -->
+  <path d="M32,14 L28,18 L28,24 L36,24 L36,18 Z" fill="#696969" transform="rotate(-10 32 20)"/> <!-- Helmet -->
+  <path d="M28,22 L28,24 L36,24 L36,22 Z" fill="#A9A9A9" transform="rotate(-10 32 20)"/> <!-- Helmet rim -->
+  <path d="M32,14 L30,12 L34,12 Z" fill="#A9A9A9" transform="rotate(-10 32 20)"/> <!-- Helmet spike -->
+  <circle cx="32" cy="20" r="4" fill="#8B0000" transform="rotate(-10 32 20)"/> <!-- Red face/mask -->
+  
+  <!-- Eyes (angry) -->
+  <circle cx="30" cy="19" r="1" fill="#FF0000" transform="rotate(-10 32 20)"/> <!-- Left eye (red) -->
+  <circle cx="34" cy="19" r="1" fill="#FF0000" transform="rotate(-10 32 20)"/> <!-- Right eye (red) -->
+  
+  <!-- Torso - Armor (twisted for attack) -->
+  <path d="M28,24 L36,24 L38,40 L26,40 Z" fill="#696969" transform="rotate(-15 32 32)"/> <!-- Chest plate -->
+  <rect x="28" y="24" width="8" height="4" fill="#A9A9A9" transform="rotate(-15 32 32)"/> <!-- Collar/neck guard -->
+  <rect x="26" y="36" width="12" height="4" fill="#A9A9A9" transform="rotate(-15 32 32)"/> <!-- Belt -->
+  
+  <!-- Arms (in attack position) -->
+  <rect x="26" y="24" width="2" height="12" fill="#8B0000" transform="rotate(-15 32 32)"/> <!-- Left arm -->
+  <rect x="36" y="24" width="2" height="12" fill="#8B0000" transform="rotate(45 36 24)"/> <!-- Right arm raised for attack -->
+  
+  <!-- Hands with gauntlets -->
+  <rect x="25" y="36" width="4" height="3" fill="#A9A9A9" transform="rotate(-15 32 32)"/> <!-- Left gauntlet -->
+  <rect x="42" y="18" width="4" height="3" fill="#A9A9A9" transform="rotate(45 42 18)"/> <!-- Right gauntlet raised -->
+  
+  <!-- Legs (in attack stance) -->
+  <rect x="28" y="40" width="3" height="12" fill="#8B0000" transform="rotate(-5 28 40)"/> <!-- Left leg -->
+  <rect x="33" y="40" width="3" height="12" fill="#8B0000" transform="rotate(-25 33 40)"/> <!-- Right leg -->
+  
+  <!-- Feet with boots -->
+  <rect x="27" y="52" width="5" height="4" fill="#000000" transform="rotate(-5 27 52)"/> <!-- Left boot -->
+  <rect x="30" y="50" width="5" height="4" fill="#000000" transform="rotate(-25 30 50)"/> <!-- Right boot -->
+  
+  <!-- Weapon (spear in attack position) -->
+  <rect x="42" y="18" width="1" height="30" fill="#8B4513" transform="rotate(45 42 18)"/> <!-- Spear shaft -->
+  <polygon points="64,8 60,12 68,12" fill="#A9A9A9" transform="rotate(45 64 8)"/> <!-- Spear tip -->
+  
+  <!-- Shield (raised for attack) -->
+  <path d="M24,28 Q20,32 20,36 Q20,40 24,44 L26,44 L26,28 Z" fill="#A9A9A9" transform="rotate(-30 24 36)"/> <!-- Shield -->
+  <circle cx="23" cy="36" r="2" fill="#8B0000" transform="rotate(-30 24 36)"/> <!-- Shield emblem -->
+  
+  <!-- Attack effect -->
+  <path d="M64,8 L68,4 M64,8 L68,8 M64,8 L68,12" stroke="#FFFF00" stroke-width="1" stroke-dasharray="2,1"/>
+  
+  <!-- Battle cry -->
+  <path d="M38,16 Q40,14 42,16 Q44,18 46,16" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="1,1" fill="none"/>
+</svg>

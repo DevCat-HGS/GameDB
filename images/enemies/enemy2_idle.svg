@@ -1,0 +1,42 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Enemy 2 (Humanoid Soldier) Idle Pose -->
+  
+  <!-- Head with helmet -->
+  <path d="M32,14 L28,18 L28,24 L36,24 L36,18 Z" fill="#696969"/> <!-- Helmet -->
+  <path d="M28,22 L28,24 L36,24 L36,22 Z" fill="#A9A9A9"/> <!-- Helmet rim -->
+  <path d="M32,14 L30,12 L34,12 Z" fill="#A9A9A9"/> <!-- Helmet spike -->
+  <circle cx="32" cy="20" r="4" fill="#8B0000"/> <!-- Red face/mask -->
+  
+  <!-- Eyes -->
+  <circle cx="30" cy="19" r="1" fill="#FFFF00"/> <!-- Left eye -->
+  <circle cx="34" cy="19" r="1" fill="#FFFF00"/> <!-- Right eye -->
+  
+  <!-- Torso - Armor -->
+  <path d="M28,24 L36,24 L38,40 L26,40 Z" fill="#696969"/> <!-- Chest plate -->
+  <rect x="28" y="24" width="8" height="4" fill="#A9A9A9"/> <!-- Collar/neck guard -->
+  <rect x="26" y="36" width="12" height="4" fill="#A9A9A9"/> <!-- Belt -->
+  
+  <!-- Arms -->
+  <rect x="26" y="24" width="2" height="12" fill="#8B0000"/> <!-- Left arm -->
+  <rect x="36" y="24" width="2" height="12" fill="#8B0000"/> <!-- Right arm -->
+  
+  <!-- Hands with gauntlets -->
+  <rect x="25" y="36" width="4" height="3" fill="#A9A9A9"/> <!-- Left gauntlet -->
+  <rect x="35" y="36" width="4" height="3" fill="#A9A9A9"/> <!-- Right gauntlet -->
+  
+  <!-- Legs -->
+  <rect x="28" y="40" width="3" height="12" fill="#8B0000"/> <!-- Left leg -->
+  <rect x="33" y="40" width="3" height="12" fill="#8B0000"/> <!-- Right leg -->
+  
+  <!-- Feet with boots -->
+  <rect x="27" y="52" width="5" height="4" fill="#000000"/> <!-- Left boot -->
+  <rect x="32" y="52" width="5" height="4" fill="#000000"/> <!-- Right boot -->
+  
+  <!-- Weapon (spear) -->
+  <rect x="38" y="24" width="1" height="30" fill="#8B4513"/> <!-- Spear shaft -->
+  <polygon points="38.5,20 36,24 41,24" fill="#A9A9A9"/> <!-- Spear tip -->
+  
+  <!-- Shield -->
+  <path d="M24,28 Q20,32 20,36 Q20,40 24,44 L26,44 L26,28 Z" fill="#A9A9A9"/> <!-- Shield -->
+  <circle cx="23" cy="36" r="2" fill="#8B0000"/> <!-- Shield emblem -->
+</svg>

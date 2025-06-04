@@ -1,0 +1,88 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark sky with smoke -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2C3E50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4B5563;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="800" height="600" fill="url(#skyGradient)"/>
+  
+  <!-- Smoke clouds -->
+  <ellipse cx="200" cy="150" rx="100" ry="50" fill="#555555" opacity="0.7"/>
+  <ellipse cx="350" cy="100" rx="120" ry="60" fill="#555555" opacity="0.6"/>
+  <ellipse cx="500" cy="180" rx="90" ry="45" fill="#555555" opacity="0.8"/>
+  <ellipse cx="650" cy="120" rx="110" ry="55" fill="#555555" opacity="0.7"/>
+  
+  <!-- Moon -->
+  <circle cx="700" cy="100" r="50" fill="#E6E6FA"/>
+  <circle cx="680" cy="90" r="15" fill="#D3D3D3"/>
+  <circle cx="720" cy="120" r="10" fill="#D3D3D3"/>
+  <circle cx="690" cy="130" r="12" fill="#D3D3D3"/>
+  
+  <!-- Mountains in background -->
+  <polygon points="0,300 100,250 200,320 300,270 400,330 500,280 600,340 700,290 800,320 800,600 0,600" fill="#2F4F4F"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="400" width="800" height="200" fill="#3D3D29"/>
+  
+  <!-- Village houses - some damaged/burning -->
+  <!-- House 1 (damaged) -->
+  <g transform="translate(100, 400)">
+    <rect x="-40" y="-80" width="80" height="80" fill="#8B4513"/>
+    <polygon points="-40,-80 0,-120 40,-80" fill="#A52A2A"/>
+    <rect x="-15" y="-40" width="30" height="40" fill="#000000"/>
+    <!-- Damage -->
+    <polygon points="-40,-40 -20,-60 -10,-30" fill="#8B4513"/>
+    <!-- Fire -->
+    <polygon points="-30,-120 -20,-140 -10,-120 0,-150 10,-120 20,-140 30,-120" fill="#FF4500"/>
+  </g>
+  
+  <!-- House 2 -->
+  <g transform="translate(250, 400)">
+    <rect x="-35" y="-70" width="70" height="70" fill="#CD853F"/>
+    <polygon points="-35,-70 0,-110 35,-70" fill="#A52A2A"/>
+    <rect x="-10" y="-30" width="20" height="30" fill="#8B4513"/>
+    <rect x="-25" y="-50" width="15" height="15" fill="#87CEEB"/>
+    <rect x="10" y="-50" width="15" height="15" fill="#87CEEB"/>
+  </g>
+  
+  <!-- House 3 (burning) -->
+  <g transform="translate(400, 400)">
+    <rect x="-45" y="-90" width="90" height="90" fill="#8B4513"/>
+    <polygon points="-45,-90 0,-130 45,-90" fill="#A52A2A"/>
+    <rect x="-15" y="-40" width="30" height="40" fill="#8B4513"/>
+    <!-- Fire -->
+    <polygon points="-20,-130 -10,-150 0,-130 10,-160 20,-130 30,-150 40,-130" fill="#FF4500"/>
+    <polygon points="-10,-150 0,-170 10,-150" fill="#FFD700"/>
+  </g>
+  
+  <!-- House 4 -->
+  <g transform="translate(550, 400)">
+    <rect x="-30" y="-60" width="60" height="60" fill="#CD853F"/>
+    <polygon points="-30,-60 0,-100 30,-60" fill="#A52A2A"/>
+    <rect x="-10" y="-30" width="20" height="30" fill="#8B4513"/>
+    <rect x="-20" y="-45" width="12" height="12" fill="#87CEEB"/>
+    <rect x="8" y="-45" width="12" height="12" fill="#87CEEB"/>
+  </g>
+  
+  <!-- House 5 (damaged) -->
+  <g transform="translate(700, 400)">
+    <rect x="-40" y="-80" width="80" height="80" fill="#8B4513"/>
+    <polygon points="-40,-80 0,-120 40,-80" fill="#A52A2A"/>
+    <rect x="-15" y="-40" width="30" height="40" fill="#000000"/>
+    <!-- Damage -->
+    <polygon points="20,-60 40,-40 30,-20" fill="#8B4513"/>
+  </g>
+  
+  <!-- Scattered flames -->
+  <polygon points="150,350 160,330 170,350 180,320 190,350" fill="#FF4500"/>
+  <polygon points="420,360 430,340 440,360 450,330 460,360" fill="#FF4500"/>
+  <polygon points="600,370 610,350 620,370 630,340 640,370" fill="#FF4500"/>
+  
+  <!-- Small flames -->
+  <polygon points="150,350 155,340 160,350" fill="#FFD700"/>
+  <polygon points="430,340 435,330 440,340" fill="#FFD700"/>
+  <polygon points="610,350 615,340 620,350" fill="#FFD700"/>
+</svg>

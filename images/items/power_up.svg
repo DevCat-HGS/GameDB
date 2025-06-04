@@ -1,0 +1,52 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Power-Up Item (Energy Crystal) -->
+  
+  <!-- Crystal base with gradient -->
+  <defs>
+    <linearGradient id="crystalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00FFFF"/> <!-- Cyan -->
+      <stop offset="50%" style="stop-color:#0080FF"/> <!-- Blue -->
+      <stop offset="100%" style="stop-color:#0000FF"/> <!-- Deep blue -->
+    </linearGradient>
+    
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- Shadow -->
+  <ellipse cx="32" cy="56" rx="14" ry="3" fill="#00000044"/>
+  
+  <!-- Crystal body -->
+  <polygon points="32,8 22,20 18,40 32,52 46,40 42,20" fill="url(#crystalGradient)" stroke="#FFFFFF" stroke-width="1"/>
+  
+  <!-- Inner facets -->
+  <path d="M32,8 L32,52" stroke="#FFFFFF60" stroke-width="1"/>
+  <path d="M22,20 L46,40" stroke="#FFFFFF60" stroke-width="1"/>
+  <path d="M42,20 L18,40" stroke="#FFFFFF60" stroke-width="1"/>
+  <path d="M22,20 L42,20" stroke="#FFFFFF60" stroke-width="1"/>
+  <path d="M18,40 L46,40" stroke="#FFFFFF60" stroke-width="1"/>
+  
+  <!-- Energy core -->
+  <circle cx="32" cy="32" r="6" fill="#FFFFFF" filter="url(#glow)"/>
+  
+  <!-- Light reflections -->
+  <polygon points="30,10 34,10 33,14 31,14" fill="#FFFFFF80"/>
+  <polygon points="24,22 28,24 26,28 22,26" fill="#FFFFFF60"/>
+  <polygon points="36,40 40,38 42,42 38,44" fill="#FFFFFF60"/>
+  
+  <!-- Energy particles -->
+  <circle cx="26" cy="30" r="1" fill="#FFFFFF"/>
+  <circle cx="38" cy="34" r="1" fill="#FFFFFF"/>
+  <circle cx="32" cy="22" r="1" fill="#FFFFFF"/>
+  <circle cx="32" cy="42" r="1" fill="#FFFFFF"/>
+  
+  <!-- Outer energy aura -->
+  <circle cx="32" cy="32" r="24" stroke="#00FFFF33" stroke-width="2" fill="none"/>
+  <circle cx="32" cy="32" r="28" stroke="#00FFFF22" stroke-width="1" fill="none"/>
+  
+  <!-- Energy rays -->
+  <path d="M32,4 L32,0 M32,60 L32,64 M4,32 L0,32 M60,32 L64,32" stroke="#00FFFF" stroke-width="1" stroke-dasharray="1,1"/>
+  <path d="M16,16 L12,12 M48,16 L52,12 M16,48 L12,52 M48,48 L52,52" stroke="#00FFFF" stroke-width="1" stroke-dasharray="1,1"/>
+</svg>

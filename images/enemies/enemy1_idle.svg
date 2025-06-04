@@ -1,0 +1,44 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Enemy 1 (Wild Boar) Idle Pose -->
+  
+  <!-- Body -->
+  <ellipse cx="32" cy="40" rx="20" ry="12" fill="#8B4513"/>
+  
+  <!-- Head -->
+  <ellipse cx="48" cy="36" rx="10" ry="8" fill="#A0522D"/>
+  
+  <!-- Snout -->
+  <ellipse cx="56" cy="36" rx="4" ry="3" fill="#CD853F"/>
+  <circle cx="58" cy="35" r="1" fill="#000000"/> <!-- Nostril -->
+  <circle cx="58" cy="37" r="1" fill="#000000"/> <!-- Nostril -->
+  
+  <!-- Eyes -->
+  <circle cx="50" cy="33" r="1.5" fill="#000000"/>
+  
+  <!-- Ears -->
+  <ellipse cx="44" cy="30" rx="3" ry="4" fill="#A0522D" transform="rotate(-30 44 30)"/>
+  <ellipse cx="46" cy="30" rx="2" ry="3" fill="#CD853F" transform="rotate(-30 46 30)"/>
+  
+  <!-- Tusks -->
+  <path d="M54,38 L56,42" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M52,38 L54,41" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Legs -->
+  <rect x="20" y="48" width="4" height="10" rx="1" fill="#8B4513"/> <!-- Back left leg -->
+  <rect x="26" y="48" width="4" height="10" rx="1" fill="#8B4513"/> <!-- Back right leg -->
+  <rect x="38" y="48" width="4" height="10" rx="1" fill="#8B4513"/> <!-- Front left leg -->
+  <rect x="44" y="48" width="4" height="10" rx="1" fill="#8B4513"/> <!-- Front right leg -->
+  
+  <!-- Hooves -->
+  <rect x="19" y="58" width="6" height="2" rx="1" fill="#000000"/> <!-- Back left hoof -->
+  <rect x="25" y="58" width="6" height="2" rx="1" fill="#000000"/> <!-- Back right hoof -->
+  <rect x="37" y="58" width="6" height="2" rx="1" fill="#000000"/> <!-- Front left hoof -->
+  <rect x="43" y="58" width="6" height="2" rx="1" fill="#000000"/> <!-- Front right hoof -->
+  
+  <!-- Tail -->
+  <path d="M12,36 Q14,32 16,36" stroke="#8B4513" stroke-width="2" fill="none"/>
+  <path d="M12,36 L10,34" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Back fur/hair -->
+  <path d="M16,32 L20,28 L24,30 L28,27 L32,29 L36,26 L40,28 L44,25 L48,28" stroke="#8B4513" stroke-width="2" fill="none"/>
+</svg>
