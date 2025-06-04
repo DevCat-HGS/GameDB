@@ -1,0 +1,45 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dragon Ball Capsule -->
+  
+  <!-- Capsule body with gradient -->
+  <defs>
+    <linearGradient id="capsuleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4682B4"/> <!-- Steel Blue -->
+      <stop offset="50%" style="stop-color:#6495ED"/> <!-- Cornflower Blue -->
+      <stop offset="100%" style="stop-color:#4682B4"/> <!-- Steel Blue -->
+    </linearGradient>
+  </defs>
+  
+  <!-- Shadow -->
+  <ellipse cx="32" cy="56" rx="16" ry="3" fill="#00000044"/>
+  
+  <!-- Capsule body (cylinder) -->
+  <rect x="16" y="24" width="32" height="24" rx="4" fill="url(#capsuleGradient)" stroke="#4169E1" stroke-width="1"/>
+  
+  <!-- Capsule top (dome) -->
+  <path d="M16,24 Q16,16 32,16 Q48,16 48,24" fill="#FF0000" stroke="#8B0000" stroke-width="1"/> <!-- Red top -->
+  
+  <!-- Capsule bottom (dome) -->
+  <path d="M16,48 Q16,56 32,56 Q48,56 48,48" fill="url(#capsuleGradient)" stroke="#4169E1" stroke-width="1"/>
+  
+  <!-- Middle band/ring -->
+  <rect x="15" y="23" width="34" height="2" fill="#C0C0C0" stroke="#A9A9A9" stroke-width="0.5"/>
+  
+  <!-- Button on top -->
+  <circle cx="32" cy="20" r="2" fill="#FFFFFF" stroke="#C0C0C0" stroke-width="0.5"/>
+  
+  <!-- Capsule Corp logo -->
+  <rect x="24" y="32" width="16" height="8" rx="1" fill="#FFFFFF"/>
+  <text x="32" y="38" font-family="Arial" font-size="6" text-anchor="middle" fill="#000000">CC</text>
+  
+  <!-- Reflections/highlights -->
+  <path d="M20,28 L20,44" stroke="#FFFFFF80" stroke-width="2" stroke-linecap="round"/>
+  <path d="M44,28 L44,44" stroke="#00000020" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Top reflection -->
+  <path d="M24,20 Q32,18 40,20" stroke="#FFFFFF80" stroke-width="1" fill="none"/>
+  
+  <!-- Number label (e.g. "01") -->
+  <rect x="28" y="44" width="8" height="4" rx="1" fill="#FFFF00" stroke="#FFD700" stroke-width="0.5"/>
+  <text x="32" y="47.5" font-family="Arial" font-size="3" text-anchor="middle" font-weight="bold" fill="#000000">01</text>
+</svg>
