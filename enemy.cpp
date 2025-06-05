@@ -1,8 +1,10 @@
 #include "enemy.h"
+#include "player.h"
 #include <QDebug>
 #include <QtMath>
+#include <QRandomGenerator>
 
-Enemy::Enemy(QString enemyType, QObject *parent) : QObject(parent)
+Enemy::Enemy(QString enemyType, QObject *parent) : QObject(parent), QGraphicsPixmapItem()
 {
     // Inicializar atributos
     type = enemyType;
@@ -69,7 +71,7 @@ void Enemy::act()
                 break;
             }
         }
-    } else if (behavior == "aggressive" && qrand() % 100 < 5) { // 5% de probabilidad
+    } else if (behavior == "aggressive" && QRandomGenerator::global()->bounded(100) < 5) { // 5% de probabilidad
         attackPlayer();
     }
 }
@@ -136,6 +138,41 @@ void Enemy::move()
         
         // Aplicar gravedad si está en el aire
         if (y() < scene()->height() - pixmap().height()) {
+            velocity.setY(velocity.y() + 0.5); // Gravedad
+        } else {
+            setPos(x(), scene()->height() - pixmap().height());
+            velocity.setY(0);
+        }
+    }
+    // Colisiones con el jugador
+    QList<QGraphicsItem*> collisions = collidingItems();
+    for (QGraphicsItem *item : collisions) {
+        if (Player *player = dynamic_cast<Player*>(item)) {
+            // Mover hacia el jugador
+            QPointF playerPos = item->pos();
+            if (playerPos.x() < x()) {
+                velocity.setX(-2);
+                setTransform(QTransform().scale(-1, 1)); // Voltear sprite
+            } else {
+                velocity.setX(2);
+                setTransform(QTransform()); // Restaurar sprite
+            }
+            
+            // Atacar si está cerca
+            if (qAbs(playerPos.x() - x()) < 50) {
+                attackPlayer();
+            }
+            break;
+        }
+    }
+
+    // Límites de la escena
+    if (QGraphicsScene *currentScene = scene()) {
+        if (x() > currentScene->width() - boundingRect().width()) {
+            setPos(currentScene->width() - boundingRect().width(), y());
+        }
+        
+        if (y() < currentScene->height() - boundingRect().height()) {
             velocity.setY(velocity.y() + 0.5); // Gravedad
         } else {
             setPos(x(), scene()->height() - pixmap().height());
