@@ -94,13 +94,13 @@ void Game::setupLevel(int levelNumber)
     QGraphicsPixmapItem *background = nullptr;
     switch (levelNumber) {
     case 1:
-        background = scene->addPixmap(QPixmap(":/images/backgrounds/level1_background.png"));
+        background = scene->addPixmap(QPixmap(":/images/backgrounds/level1_background.svg"));
         break;
     case 2:
-        background = scene->addPixmap(QPixmap(":/images/backgrounds/level2_background.png"));
+        background = scene->addPixmap(QPixmap(":/images/backgrounds/level2_background.svg"));
         break;
     case 3:
-        background = scene->addPixmap(QPixmap(":/images/backgrounds/level3_background.png"));
+        background = scene->addPixmap(QPixmap(":/images/backgrounds/level3_background.svg"));
         break;
     }
     

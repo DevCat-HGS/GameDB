@@ -14,20 +14,20 @@ Enemy::Enemy(QString enemyType, QObject *parent) : QObject(parent)
     // Configurar comportamiento según el tipo
     if (type == "jabali") {
         behavior = "charge";
-        idleSprite = QPixmap(":/images/enemies/enemy1_idle.png");
-        attackingSprite = QPixmap(":/images/enemies/enemy1_attacking.png");
+        idleSprite = QPixmap(":/images/enemies/enemy1_idle.svg");
+        attackingSprite = QPixmap(":/images/enemies/enemy1_attacking.svg");
     } else if (type == "basic") {
         behavior = "patrol";
-        idleSprite = QPixmap(":/images/enemies/enemy1_idle.png");
-        attackingSprite = QPixmap(":/images/enemies/enemy1_attacking.png");
+        idleSprite = QPixmap(":/images/enemies/enemy1_idle.svg");
+        attackingSprite = QPixmap(":/images/enemies/enemy1_attacking.svg");
     } else if (type == "soldier") {
         behavior = "pursue";
-        idleSprite = QPixmap(":/images/enemies/enemy2_idle.png");
-        attackingSprite = QPixmap(":/images/enemies/enemy2_attacking.png");
+        idleSprite = QPixmap(":/images/enemies/enemy2_idle.svg");
+        attackingSprite = QPixmap(":/images/enemies/enemy2_attacking.svg");
     } else if (type == "boss") {
         behavior = "aggressive";
-        idleSprite = QPixmap(":/images/enemies/enemy2_idle.png");
-        attackingSprite = QPixmap(":/images/enemies/enemy2_attacking.png");
+        idleSprite = QPixmap(":/images/enemies/enemy2_idle.svg");
+        attackingSprite = QPixmap(":/images/enemies/enemy2_attacking.svg");
     }
     
     // Establecer sprite inicial

@@ -16,10 +16,10 @@ Player::Player(QObject *parent) : QObject(parent)
     isAttacking = false;
     
     // Cargar sprites
-    idleSprite = QPixmap(":/images/characters/goku_idle.png");
-    runningSprite = QPixmap(":/images/characters/goku_running.png");
-    jumpingSprite = QPixmap(":/images/characters/goku_jumping.png");
-    attackingSprite = QPixmap(":/images/characters/goku_attacking.png");
+    idleSprite = QPixmap(":/images/characters/goku_idle.svg");
+    runningSprite = QPixmap(":/images/characters/goku_running.svg");
+    jumpingSprite = QPixmap(":/images/characters/goku_jumping.svg");
+    attackingSprite = QPixmap(":/images/characters/goku_attacking.svg");
     
     // Establecer sprite inicial
     setPixmap(idleSprite);
