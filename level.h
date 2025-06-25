@@ -1,32 +1,20 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include <QString>
-#include <QList>
-#include "objective.h"
+#include <vector>
+#include <string>
+#include "Objective.h"
+#include "PhysicsModel.h"
 
-class Level
-{
+class Level {
 public:
-    Level(int number);
-    ~Level();
-    
-    // Métodos según el diagrama UML
+    int levelNumber;
+    std::string description;
+    std::vector<Objective> objectives;
+    std::vector<PhysicsModel> physics;
+
     void loadLevel();
     bool checkCompletion();
-    
-    // Getters
-    int getLevelNumber() const { return levelNumber; }
-    QString getDescription() const { return description; }
-    QList<Objective*> getObjectives() const { return objectives; }
-    QString getPhysics() const { return physics; }
-    
-private:
-    // Atributos según el diagrama UML
-    int levelNumber;
-    QString description;
-    QList<Objective*> objectives;
-    QString physics;
 };
 
-#endif // LEVEL_H
+#endif // LEVEL_H 

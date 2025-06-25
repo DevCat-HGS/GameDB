@@ -1,28 +1,15 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-    <qresource prefix="/">
-        <!-- Backgrounds -->
-        <file>images/backgrounds/level1_background.svg</file>
-        <file>images/backgrounds/level2_background.svg</file>
-        <file>images/backgrounds/level3_background.svg</file>
-        
-        <!-- Characters -->
-        <file>images/characters/goku_idle.svg</file>
-        <file>images/characters/goku_running.svg</file>
-        <file>images/characters/goku_jumping.svg</file>
-        <file>images/characters/goku_attacking.svg</file>
-        <file>images/characters/bulma_idle.svg</file>
-        <file>images/characters/bulma_running.svg</file>
-        
-        <!-- Enemies -->
-        <file>images/enemies/enemy1_idle.svg</file>
-        <file>images/enemies/enemy1_attacking.svg</file>
-        <file>images/enemies/enemy2_idle.svg</file>
-        <file>images/enemies/enemy2_attacking.svg</file>
-        
-        <!-- Items -->
-        <file>images/items/dragonball.svg</file>
-        <file>images/items/fruit.svg</file>
-        <file>images/items/capsule.svg</file>
-    </qresource>
+<RCC>
+  <qresource prefix="/">
+    <file>Img/Mapas/1/Fondo.jpg</file>
+    <file>Img/Mapas/1/Piso.jpg</file>
+    <file>Img/Goku/Goku.png</file>
+    <file>Img/Goku/Goku_Saltar.png</file>
+    <file>Img/Goku/Goku_Ataca.png</file>
+    <file>Img/Elementos/Fruta.png</file>
+    <file>Img/Enemigos/Tigre.png</file>
+    <file>Img/Enemigos/Tigre_Ataca.png</file>
+    <file>Img/Bulma/Bulma.png</file>
+    <file>Img/Bulma/Bulma_Salvar.png</file>
+    <file>Img/Elementos/Bala.png</file>
+  </qresource>
 </RCC>

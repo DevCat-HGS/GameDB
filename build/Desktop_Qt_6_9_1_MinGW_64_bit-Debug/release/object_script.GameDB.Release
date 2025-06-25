@@ -1,0 +1,15 @@
+release/main.o
+release/mainwindow.o
+release/Game.o
+release/Player.o
+release/Enemy.o
+release/PhysicsEngine.o
+release/Level.o
+release/PhysicsModel.o
+release/Objective.o
+release/PlayerItem.o
+release/TigerItem.o
+release/qrc_resources.o
+release/moc_mainwindow.o
+release/moc_PlayerItem.o
+release/moc_TigerItem.o

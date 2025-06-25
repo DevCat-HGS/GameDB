@@ -1,24 +1,14 @@
 #ifndef PHYSICSMODEL_H
 #define PHYSICSMODEL_H
 
-#include <QString>
+#include <string>
 
-class PhysicsModel
-{
+class PhysicsModel {
 public:
-    PhysicsModel(const QString &modelName, const QString &modelFormula);
-    
-    // Método según el diagrama UML
+    std::string name;
+    std::string formula;
+
     void simulate();
-    
-    // Getters
-    QString getName() const { return name; }
-    QString getFormula() const { return formula; }
-    
-private:
-    // Atributos según el diagrama UML
-    QString name;
-    QString formula;
 };
 
-#endif // PHYSICSMODEL_H
+#endif // PHYSICSMODEL_H 

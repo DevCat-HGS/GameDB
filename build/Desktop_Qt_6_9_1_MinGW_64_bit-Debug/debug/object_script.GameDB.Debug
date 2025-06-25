@@ -1,0 +1,15 @@
+debug/main.o
+debug/mainwindow.o
+debug/Game.o
+debug/Player.o
+debug/Enemy.o
+debug/PhysicsEngine.o
+debug/Level.o
+debug/PhysicsModel.o
+debug/Objective.o
+debug/PlayerItem.o
+debug/TigerItem.o
+debug/qrc_resources.o
+debug/moc_mainwindow.o
+debug/moc_PlayerItem.o
+debug/moc_TigerItem.o
