@@ -7,6 +7,7 @@
 #include <QGraphicsPixmapItem>
 #include <QTimer>
 #include <QDebug>
+#include <QFont>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -91,6 +92,21 @@ void MainWindow::setupLevel1() {
     tiger = new TigerItem();
     tiger->setPos(750, 350);
     scene->addItem(tiger);
+
+    // Contador de tiempo para el nivel 1
+    timeRemaining = 30;
+    timeText = new QGraphicsTextItem();
+    timeText->setPlainText(QString("Tiempo: %1").arg(timeRemaining));
+    timeText->setDefaultTextColor(Qt::white);
+    timeText->setFont(QFont("Arial", 16, QFont::Bold));
+    timeText->setPos(10, 10);
+    timeText->setZValue(10);
+    scene->addItem(timeText);
+
+    // Timer para el contador de tiempo
+    level1Timer = new QTimer(this);
+    connect(level1Timer, &QTimer::timeout, this, &MainWindow::updateLevel1Timer);
+    level1Timer->start(1000); // Actualizar cada segundo
 
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, scene, &QGraphicsScene::advance);
@@ -267,6 +283,10 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             delete f;
             if (currentLevel == 1) {
                 qDebug() << "[LOG] Transición a nivel 2";
+                // Detener el timer del contador de tiempo
+                if (level1Timer) {
+                    level1Timer->stop();
+                }
                 QTimer::singleShot(0, this, [this]() { setupLevel2(); });
                 return;
             } else if (currentLevel == 2) {
@@ -288,5 +308,27 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             }
             break;
         }
+    }
+}
+
+void MainWindow::updateLevel1Timer() {
+    if (currentLevel != 1) return;
+    
+    timeRemaining--;
+    if (timeText) {
+        timeText->setPlainText(QString("Tiempo: %1").arg(timeRemaining));
+        
+        // Cambiar color cuando queden 10 segundos o menos
+        if (timeRemaining <= 10) {
+            timeText->setDefaultTextColor(Qt::red);
+        }
+    }
+    
+    if (timeRemaining <= 0) {
+        if (level1Timer) {
+            level1Timer->stop();
+        }
+        QMessageBox::warning(this, "¡Tiempo agotado!", "No lograste tomar la fruta en 30 segundos. ¡Perdiste!");
+        qApp->exit();
     }
 } 
